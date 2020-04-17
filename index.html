@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sorting Visualization</title>
+		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/canvas.css">
+		<link rel="stylesheet" type="text/css" href="css/slider.css">
+		<script src="js/helper.js"></script>
+		<script src="js/animate.js"></script>
+	</head>
+
+	<body>
+        <h1>Welcome to Sorting Visualizations!</h1>
+        <div id="canvas-div" class="Canvas">
+            <canvas id="canvas-canvas" width=700 height=300>
+		</div>
+
+		<div id="slider-div" class="Slider">
+			<input id="slider-input" type="range" min="10" max="75" value="16">
+			<p id="demo"></p>
+		</div>
+
+		<button id="start-button" type="button" onclick="start_animation()">Start</button>
+		<button id="stop-button" type="button" onclick="stop_animation()">Stop</button>
+
+		<script>
+			initialize();
+		</script>
+	</body>
+</html>
