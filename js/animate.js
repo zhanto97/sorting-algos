@@ -70,6 +70,7 @@ function start_animation() {
     document.getElementById("start-button").style.color = '#CCC9C1';
     document.getElementById("stop-button").disabled = false;
     document.getElementById("stop-button").style.color = 'black';
+    document.getElementById("size-slider-input").disabled = true;
     SORT_METHOD(CANVAS, ARRAY, COLORS);
 }
 
@@ -79,6 +80,7 @@ function stop_animation(){
     document.getElementById("start-button").style.color = 'black';
     document.getElementById("stop-button").disabled = true;
     document.getElementById("stop-button").style.color = '#CCC9C1';
+    document.getElementById("size-slider-input").disabled = false;
 }
 
 function choose_sort(id){
