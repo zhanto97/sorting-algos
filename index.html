@@ -5,23 +5,39 @@
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/canvas.css">
 		<link rel="stylesheet" type="text/css" href="css/slider.css">
+		<link rel="stylesheet" type="text/css" href="css/sort-buttons.css">
+		<link rel="stylesheet" type="text/css" href="css/controls.css">
 		<script src="js/helper.js"></script>
 		<script src="js/animate.js"></script>
 	</head>
 
-	<body>
-        <h1>Welcome to Sorting Visualizations!</h1>
+	<body style="background-color: #FFF8F0;">
+		<div id="sort-div" class="Sort">
+			<button id="bubble-sort-button" class="sort-button" onclick="choose_sort(1)">Bubble sort</button>
+			<button id="selection-sort-button" class="sort-button" onclick="choose_sort(2)">Selection sort</button>
+			<button id="insertion-sort-button" class="sort-button" onclick="choose_sort(3)">Insertion sort</button>
+			<button id="merge-sort-button" class="sort-button sort-active" onclick="choose_sort(4)">Merge sort</button>
+		</div>
+
         <div id="canvas-div" class="Canvas">
             <canvas id="canvas-canvas" width=700 height=300>
 		</div>
 
-		<div id="slider-div" class="Slider">
-			<input id="slider-input" type="range" min="10" max="75" value="16">
-			<p id="demo"></p>
+		<div id="sliders-div" class="Sliders">
+			<div id="size-slider-div" class="Slider">
+				<input id="size-slider-input" type="range" min="10" max="75" value="50">
+				<p id="size-slider-p"></p>
+			</div>
+			<div id="speed-slider-div" class="Slider">
+				<input id="speed-slider-input" type="range" min="20" max="400" value="100" step="20">
+				<p id="speed-slider-p"></p>
+			</div>
 		</div>
 
-		<button id="start-button" type="button" onclick="start_animation()">Start</button>
-		<button id="stop-button" type="button" onclick="stop_animation()">Stop</button>
+		<div id="controls-div" class="Controls">
+			<button id="start-button" type="button" onclick="start_animation()">Start</button>
+			<button id="stop-button" type="button" onclick="stop_animation()">Stop</button>
+		</div>
 
 		<script>
 			initialize();

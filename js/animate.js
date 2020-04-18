@@ -1,62 +1,88 @@
-var TIMEOUT = 500;
-var DEFAULT_COLOR = '#d3d3d3';
-var COMPARE_COLOR = '#00f';
-var NOSWAP_COLOR = '#0f0';
-var SWAP_COLOR = '#f00';
+var DEFAULT_COLOR = '#CCC9C1';
+var COMPARE_COLOR = '#1800A3';
+var NOSWAP_COLOR = DEFAULT_COLOR;
+var SWAP_COLOR = '#9E2B25';
 var RUNNING = false;
 
+var TIMEOUT = null;
 var CANVAS = null;
-var SLIDER = null;
-var SLIDER_OUTPUT = null;
 var ARRAY = null;
 var COLORS = null;
+var SORT_MAP = {
+    1: bubble_sort,
+    2: selection_sort,
+    3: insertion_sort,
+    4: merge_sort
+};
+var SORT_METHOD = merge_sort;
 
 
 /*
 TODO
 
-Implement more sorting algorithms: quick sort 
-Add buttons to let user choose algorithm
-Add button (slider?) to let person choose animation speed (50 - 500)
-
-Add general CSS for all buttons and sliders
+Implement more sorting algorithms: quick sort, heapsort
 
 Refactor code
 */
 
 function initialize(){
-    CANVAS = document.getElementById('canvas-canvas');
-    SLIDER = document.getElementById("slider-input");
-    SLIDER_OUTPUT = document.getElementById("demo");
+    var sortDiv = document.getElementById("sort-div");
+    var buttons = sortDiv.getElementsByTagName("BUTTON");
+    for (i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("sort-active");
+            current[0].className = current[0].className.replace(" sort-active", "");
+            this.className += " sort-active";
+            stop_animation();
+        });
+    }
 
+    CANVAS = document.getElementById('canvas-canvas');
     enhance_canvas_dpi(CANVAS);
 
-    document.getElementById("start-button").disabled = false;
-    document.getElementById("stop-button").disabled = true;
-
-    SLIDER_OUTPUT.innerHTML = SLIDER.value;
-    update_array(parseInt(SLIDER.value));
-
-    SLIDER.oninput = function() {
-        SLIDER_OUTPUT.innerHTML = SLIDER.value;
-        update_array(parseInt(SLIDER.value));
+    var size_slider = document.getElementById("size-slider-input");
+    var size_slider_output = document.getElementById("size-slider-p");
+    size_slider_output.innerHTML = "Number of blocks: " + size_slider.value;
+    update_array(parseInt(size_slider.value));
+    size_slider.oninput = function() {
+        size_slider_output.innerHTML = "Number of blocks: " + size_slider.value;
+        update_array(parseInt(size_slider.value));
     }
+
+    var speed_slider = document.getElementById("speed-slider-input");
+    var speed_slider_output = document.getElementById("speed-slider-p");
+    speed_slider_output.innerHTML = "Animation speed: " + speed_slider.value + " ms";
+    TIMEOUT = parseInt(speed_slider.value);
+    speed_slider.oninput = function() {
+        speed_slider_output.innerHTML = "Animation speed: " + speed_slider.value + " ms";
+        TIMEOUT = parseInt(speed_slider.value);
+    }
+
+    document.getElementById("start-button").disabled = false;
+    document.getElementById("start-button").style.color = 'black';
+    document.getElementById("stop-button").disabled = true;
+    document.getElementById("stop-button").style.color = '#CCC9C1';
 }
 
 function start_animation() {
     RUNNING = true;
     document.getElementById("start-button").disabled = true;
+    document.getElementById("start-button").style.color = '#CCC9C1';
     document.getElementById("stop-button").disabled = false;
-    // bubble_sort(CANVAS, ARRAY, COLORS);
-    // selection_sort(CANVAS, ARRAY, COLORS);
-    // insertion_sort(CANVAS, ARRAY, COLORS);
-    merge_sort(CANVAS, ARRAY, COLORS, 0, ARRAY.length - 1);
+    document.getElementById("stop-button").style.color = 'black';
+    SORT_METHOD(CANVAS, ARRAY, COLORS);
 }
 
 function stop_animation(){
     RUNNING = false;
     document.getElementById("start-button").disabled = false;
+    document.getElementById("start-button").style.color = 'black';
     document.getElementById("stop-button").disabled = true;
+    document.getElementById("stop-button").style.color = '#CCC9C1';
+}
+
+function choose_sort(id){
+    SORT_METHOD = SORT_MAP[id];
 }
 
 async function bubble_sort(canvas, array, colors) {
@@ -120,8 +146,8 @@ async function insertion_sort(canvas, array, colors) {
     draw_bars(canvas, array, colors);
 }
 
-async function merge_sort(canvas, array, colors, first, last){
-    await _merge_sort(canvas, array, colors, first, last);
+async function merge_sort(canvas, array, colors){
+    await _merge_sort(canvas, array, colors, 0, array.length - 1);
     stop_animation();
     draw_bars(canvas, array, colors);
 }

@@ -1,17 +1,45 @@
-.Slider {
-    width: 20%;
+.Sliders {
+    margin-top: 40px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.Slider input {
-    width: 100%;
-    height: 25px;
-    background: #d3d3d3;
+.Slider {
+    display: inline-block;
+    min-width: 300px;
+    text-align: center;
+}
+
+.Slider p {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.Slider input[type='range'] {
+    -webkit-appearance: none;
+    width: 70%;
+    height: 10px;
+    border-radius: 4px;
+    background: #CCC9C1;
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
 }
 
-.Slider input:hover {
+.Slider input[type='range']:hover {
     opacity: 1;
+}
+
+.Slider input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: black;
+    cursor: pointer;
 }
